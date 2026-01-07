@@ -1,0 +1,488 @@
+`html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Растения для здоровья, еды и косметики</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+       
+        body {
+            background-color: #f0f7f0;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+       
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+       
+        header {
+            background: linear-gradient(to right, #2d5a27, #4a9c3e);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+       
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+       
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+       
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 20px;
+            background-color: #f9fff9;
+        }
+       
+        .category-btn {
+            padding: 20px 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+       
+        .category-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+       
+        .health-btn {
+            background-color: #e8f5e9;
+            color: #2d5a27;
+            border: 2px solid #a5d6a7;
+        }
+       
+        .health-btn:hover {
+            background-color: #c8e6c9;
+            transform: translateY(-5px);
+        }
+       
+        .food-btn {
+            background-color: #fff3e0;
+            color: #e65100;
+            border: 2px solid #ffcc80;
+        }
+       
+        .food-btn:hover {
+            background-color: #ffe0b2;
+            transform: translateY(-5px);
+        }
+       
+        .cosmetic-btn {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+            border: 2px solid #ce93d8;
+        }
+       
+        .cosmetic-btn:hover {
+            background-color: #e1bee7;
+            transform: translateY(-5px);
+        }
+       
+        .plants-container {
+            padding: 30px;
+            min-height: 500px;
+        }
+       
+        .category-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #2d5a27;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+        }
+       
+        .category-title i {
+            margin-right: 15px;
+        }
+       
+        .plants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+       
+        .plant-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+transition: transform 0.3s ease;
+            border-top: 5px solid #4a9c3e;
+        }
+       
+        .plant-card:hover {
+            transform: translateY(-10px);
+        }
+       
+        .plant-img {
+            height: 200px;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #4a9c3e;
+        }
+       
+        .plant-info {
+            padding: 20px;
+        }
+       
+        .plant-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d5a27;
+        }
+       
+        .plant-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+       
+        .plant-uses {
+            font-size: 0.9rem;
+            color: #888;
+        }
+       
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #2d5a27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+       
+        .back-btn:hover {
+            background-color: #1e3d1b;
+        }
+       
+        .hidden {
+            display: none;
+        }
+       
+        .active {
+            display: block;
+        }
+       
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #2d5a27;
+            color: white;
+            margin-top: 30px;
+        }
+       
+        @media (max-width: 768px) {
+            .category-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+           
+            .plants-grid {
+                grid-template-columns: 1fr;
+            }
+           
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-leaf"></i> Растения в нашей жизни</h1>
+            <p class="subtitle">Выберите категорию, чтобы узнать какие растения используются для здоровья, питания и косметики</p>
+        </header>
+       
+        <div class="categories">
+            <button class="category-btn health-btn" data-category="health">
+                <i class="fas fa-heartbeat"></i>
+                <span>Для здоровья</span>
+            </button>
+           
+            <button class="category-btn food-btn" data-category="food">
+                <i class="fas fa-utensils"></i>
+                <span>В питании</span>
+            </button>
+           
+            <button class="category-btn cosmetic-btn" data-category="cosmetic">
+                <i class="fas fa-spa"></i>
+                <span>В косметике</span>
+            </button>
+        </div>
+       
+        <div class="plants-container">
+            <div id="health-category" class="category-content hidden">
+                <h2 class="category-title"><i class="fas fa-heartbeat"></i> Растения для здоровья</h2>
+                <div class="plants-grid">
+                    <!-- Растения будут добавлены через JavaScript -->
+                </div>
+                <button class="back-btn">Вернуться к выбору категории</button>
+            </div>
+           
+            <div id="food-category" class="category-content hidden">
+                <h2 class="category-title"><i class="fas fa-utensils"></i> Растения в питании</h2>
+                <div class="plants-grid">
+                    <!-- Растения будут добавлены через JavaScript -->
+                </div>
+
+<button class="back-btn">Вернуться к выбору категории</button>
+            </div>
+           
+            <div id="cosmetic-category" class="category-content hidden">
+                <h2 class="category-title"><i class="fas fa-spa"></i> Растения в косметике</h2>
+                <div class="plants-grid">
+                    <!-- Растения будут добавлены через JavaScript -->
+                </div>
+                <button class="back-btn">Вернуться к выбору категории</button>
+            </div>
+        </div>
+       
+        <footer>
+            <p>© 2023 Растения для здоровья, еды и косметики | Все права защищены</p>
+            <p>Информация предоставлена в ознакомительных целях</p>
+        </footer>
+    </div>
+
+    <script>
+        // Данные о растениях для каждой категории
+        const plantsData = {
+            health: [
+                {
+                    name: "Ромашка аптечная",
+                    description: "Обладает противовоспалительным, антисептическим и успокаивающим действием. Используется при простуде, проблемах с ЖКТ и кожных заболеваниях.",
+                    uses: "Чай, настой, отвар, ингаляции",
+                    icon: "fas fa-seedling"
+                },
+                {
+                    name: "Эхинацея",
+                    description: "Стимулирует иммунную систему, помогает в борьбе с вирусными и бактериальными инфекциями.",
+                    uses: "Настойка, чай, экстракт",
+                    icon: "fas fa-flower"
+                },
+                {
+                    name: "Мята перечная",
+                    description: "Успокаивает нервную систему, помогает при головных болях, тошноте и проблемах с пищеварением.",
+                    uses: "Чай, настой, эфирное масло",
+                    icon: "fas fa-leaf"
+                },
+                {
+                    name: "Шалфей",
+                    description: "Обладает антисептическими свойствами, помогает при ангине, стоматите и проблемах с пищеварением.",
+                    uses: "Отвар для полоскания, чай, ингаляции",
+                    icon: "fas fa-spa"
+                },
+                {
+                    name: "Имбирь",
+                    description: "Противовоспалительное средство, помогает при тошноте, улучшает пищеварение и кровообращение.",
+                    uses: "Чай, настойка, свежий корень",
+                    icon: "fas fa-root"
+                },
+                {
+                    name: "Зверобой",
+                    description: "Применяется при депрессии, тревожных состояниях, а также как противовоспалительное и ранозаживляющее средство.",
+                    uses: "Настой, отвар, масляный экстракт",
+                    icon: "fas fa-sun"
+                }
+            ],
+            food: [
+                {
+                    name: "Базилик",
+                    description: "Ароматная приправа, богатая витаминами и антиоксидантами. Улучшает пищеварение и обладает противовоспалительными свойствами.",
+                    uses: "Свежий в салатах, сушеный как приправа, соус песто",
+                    icon: "fas fa-seedling"
+                },
+                {
+                    name: "Розмарин",
+                    description: "Пряное растение с сильным ароматом, улучшающее память и концентрацию. Содержит антиоксиданты и противовоспалительные соединения.",
+                    uses: "Приправа к мясу, рыбе, овощам, чай",
+                    icon: "fas fa-tree"
+                },
+                {
+                    name: "Укроп",
+                    description: "Богат витамином С и калием. Улучшает пищеварение, обладает мочегонными свойствами и помогает снижать давление.",
+                    uses: "Свежий в салатах, супы, соления, соусы",
+                    icon: "fas fa-leaf"
+
+},
+                {
+                    name: "Тимьян (Чабрец)",
+                    description: "Сильный антисептик, помогает при кашле и простуде. Богат железом и витамином К.",
+                    uses: "Приправа к мясу и овощам, чай, сироп от кашля",
+                    icon: "fas fa-mountain"
+                },
+                {
+                    name: "Петрушка",
+                    description: "Богата витаминами А, С, К и железом. Улучшает пищеварение, освежает дыхание и обладает мочегонным эффектом.",
+                    uses: "Свежая в салатах, супах, гарнирах, смузи",
+                    icon: "fas fa-seedling"
+                },
+                {
+                    name: "Лавровый лист",
+                    description: "Улучшает пищеварение, обладает противовоспалительными свойствами и помогает при респираторных заболеваниях.",
+                    uses: "Приправа к супам, тушеным блюдам, маринадам",
+                    icon: "fas fa-leaf"
+                }
+            ],
+            cosmetic: [
+                {
+                    name: "Алоэ вера",
+                    description: "Увлажняет кожу, снимает раздражение и воспаление, ускоряет заживление ран и ожогов.",
+                    uses: "Гели, кремы, маски, лосьоны для кожи",
+                    icon: "fas fa-pagelines"
+                },
+                {
+                    name: "Календула",
+                    description: "Обладает противовоспалительными и антисептическими свойствами, успокаивает раздраженную кожу, помогает при акне.",
+                    uses: "Кремы, мази, тоники, масла для кожи",
+                    icon: "fas fa-sun"
+                },
+                {
+                    name: "Лаванда",
+                    description: "Успокаивает кожу и нервную систему, обладает антисептическими свойствами, помогает при ожогах и укусах насекомых.",
+                    uses: "Эфирное масло, кремы, мыло, парфюмерия",
+                    icon: "fas fa-spa"
+                },
+                {
+                    name: "Чайное дерево",
+                    description: "Мощный природный антисептик, эффективен против акне, грибковых инфекций и воспалений кожи.",
+                    uses: "Эфирное масло, средства от акне, шампуни",
+                    icon: "fas fa-tree"
+                },
+                {
+                    name: "Роза",
+                    description: "Обладает тонизирующими и омолаживающими свойствами, увлажняет кожу, улучшает цвет лица.",
+                    uses: "Розовая вода, кремы, маски, масла",
+                    icon: "fas fa-rose"
+                },
+                {
+                    name: "Огурцы",
+                    description: "Освежают и тонизируют кожу, уменьшают отеки и темные круги под глазами, увлажняют кожу.",
+                    uses: "Маски, тоники, лосьоны, патчи для глаз",
+                    icon: "fas fa-seedling"
+                }
+            ]
+        };
+       
+        // Элементы DOM
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const categoryContents = document.querySelectorAll('.category-content');
+        const backButtons = document.querySelectorAll('.back-btn');
+        const plantsContainers = {
+            health: document.querySelector('#health-category .plants-grid'),
+            food: document.querySelector('#food-category .plants-grid'),
+            cosmetic: document.querySelector('#cosmetic-category .plants-grid')
+        };
+       
+        // Функция для отображения выбранной категории
+        function showCategory(category) {
+            // Скрыть все категории
+            categoryContents.forEach(content => {
+                content.classList.remove('active');
+                content.classList.add('hidden');
+            });
+
+// Показать выбранную категорию
+            const selectedCategory = document.getElementById(${category}-category);
+            selectedCategory.classList.remove('hidden');
+            selectedCategory.classList.add('active');
+           
+            // Заполнить растениями, если еще не заполнено
+            if (!plantsContainers[category].hasChildNodes()) {
+                renderPlants(category);
+            }
+        }
+       
+        // Функция для отображения растений в выбранной категории
+        function renderPlants(category) {
+            const container = plantsContainers[category];
+            container.innerHTML = '';
+           
+            plantsData[category].forEach(plant => {
+                const plantCard = document.createElement('div');
+                plantCard.className = 'plant-card';
+               
+                plantCard.innerHTML =
+                    <div class="plant-img">
+                        <i class="${plant.icon}"></i>
+                    </div>
+                    <div class="plant-info">
+                        <h3 class="plant-name">${plant.name}</h3>
+                        <p class="plant-description">${plant.description}</p>
+                        <p class="plant-uses"><strong>Применение:</strong> ${plant.uses}</p>
+                    </div>
+                ;
+               
+                container.appendChild(plantCard);
+            });
+        }
+       
+        // Обработчики событий для кнопок категорий
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showCategory(category);
+            });
+        });
+       
+        // Обработчики событий для кнопок "Назад"
+        backButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Скрыть все категории
+                categoryContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.classList.add('hidden');
+                });
+            });
+        });
+       
+        // Инициализация: показать первую категорию при загрузке (опционально)
+        // showCategory('health');
+    </script>
+</body>
+</html>
+`
